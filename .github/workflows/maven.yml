@@ -23,17 +23,17 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
 
-    #- name: Copy files to neccessary folders
-    #  run: mkdir staging && cp /home/runner/work/dockeransiblejenkins/dockeransiblejenkins/target/dockeransible.war staging      
-    #- uses: actions/upload-artifact@v3
-    #  with:
-    #    name: dockeransible.war
-    #    path: staging
-    #- name: Download artifact
-    #  uses: actions/download-artifact@v3
-    #  with:
-    #    name: dockeransible.war
-    #    path: .
+    - name: Copy files to neccessary folders
+      run: mkdir staging && cp /home/runner/work/dockeransiblejenkins/dockeransiblejenkins/target/dockeransible.war staging      
+    - uses: actions/upload-artifact@v3
+      with:
+        name: dockeransible.war
+        path: staging
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: dockeransible.war
+        path: .
      
     - name: Login Docker hub
       uses: docker/login-action@v1
