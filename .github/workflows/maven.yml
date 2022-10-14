@@ -35,6 +35,10 @@ jobs:
         name: dockeransible.war
         path: .
          
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    steps:
     - name: Login Docker hub
       uses: docker/login-action@v1
       with:
