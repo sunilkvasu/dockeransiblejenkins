@@ -11,9 +11,7 @@ on:
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -24,20 +22,17 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-      
-      
+
     - name: Copy files to neccessary folders
-      run: mkdir staging && cp /home/runner/work/dockeransiblejenkins/dockeransiblejenkins/target/dockeransible.war staging
-      
+      run: mkdir staging && cp /home/runner/work/dockeransiblejenkins/dockeransiblejenkins/target/dockeransible.war staging      
     - uses: actions/upload-artifact@v3
       with:
-        name: COMPONENT
+        name: dockeransible.war
         path: staging
-        
     - name: Download artifact
       uses: actions/download-artifact@v3
       with:
-        name: COMPONENT
+        name: dockeransible.war
         path: .
          
     - name: Login Docker hub
@@ -47,7 +42,6 @@ jobs:
         username: ${{ secrets.DOCKERHUBUSER }}
         password: ${{ secrets.DOCKERHUBPWD }}
     - name: Build and push
-      id: docker_build
       uses: docker/build-push-action@v2
       with:
         push: true
