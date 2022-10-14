@@ -17,3 +17,26 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
+
+
+steps:
+- tasks: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJunitResults: true
+    testResultFiles: '**/TEST-*.xml'
+    goals: 'package'
+    
+- tasks: CopyFiles@2
+  inputs:
+    contents: '**/*.war'
+    targetFolder: '$(build.artifactStagingDirectory)'
+    
+ - tasks: PublishBuildArtifacts@1
+   inputs:
+     artifactName: 'war'
+ pathToPublish: '$(build.artifactStagingDirectory)'
