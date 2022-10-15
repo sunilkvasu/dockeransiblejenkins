@@ -30,7 +30,7 @@ steps:
     publishJunitResults: true
     testResultFiles: '**/TEST-*.xml'
     goals: 'package'
-    
+
 - tasks: CopyFiles@2
   inputs:
     contents: '**/*.war'
@@ -40,3 +40,4 @@ steps:
    inputs:
      artifactName: 'war'
  pathToPublish: '$(build.artifactStagingDirectory)'
+ 
